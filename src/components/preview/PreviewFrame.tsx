@@ -11,7 +11,7 @@ import { AlertCircle } from "lucide-react";
 export function PreviewFrame() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { getAllFiles, refreshTrigger } = useFileSystem();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>("firstLoad");
   const [entryPoint, setEntryPoint] = useState<string>("/App.jsx");
   const [isFirstLoad, setIsFirstLoad] = useState(true);
 

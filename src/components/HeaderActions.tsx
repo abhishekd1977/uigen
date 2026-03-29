@@ -114,46 +114,48 @@ export function HeaderActions({ user, projectId }: HeaderActionsProps) {
 
   return (
     <div className="flex items-center gap-2">
-      {!initialLoading && (
-        <Popover open={projectsOpen} onOpenChange={setProjectsOpen}>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="h-8 gap-2" role="combobox">
-              <FolderOpen className="h-4 w-4" />
-              {currentProject ? currentProject.name : "Select Project"}
-              <ChevronDown className="h-3 w-3 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0" align="end">
-            <Command>
-              <CommandInput
-                placeholder="Search projects..."
-                value={searchQuery}
-                onValueChange={setSearchQuery}
-              />
-              <CommandList>
-                <CommandEmpty>No projects found.</CommandEmpty>
-                <CommandGroup>
-                  {filteredProjects.map((project) => (
-                    <CommandItem
-                      key={project.id}
-                      value={project.name}
-                      onSelect={() => {
-                        router.push(`/${project.id}`);
-                        setProjectsOpen(false);
-                        setSearchQuery("");
-                      }}
-                    >
-                      <div className="flex flex-col">
-                        <span className="font-medium">{project.name}</span>
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
-      )}
+      <Popover open={projectsOpen} onOpenChange={setProjectsOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={`h-8 gap-2 ${initialLoading ? "invisible" : ""}`}
+            role="combobox"
+          >
+            <FolderOpen className="h-4 w-4" />
+            {currentProject ? currentProject.name : "Select Project"}
+            <ChevronDown className="h-3 w-3 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[300px] p-0" align="end">
+          <Command>
+            <CommandInput
+              placeholder="Search projects..."
+              value={searchQuery}
+              onValueChange={setSearchQuery}
+            />
+            <CommandList>
+              <CommandEmpty>No projects found.</CommandEmpty>
+              <CommandGroup>
+                {filteredProjects.map((project) => (
+                  <CommandItem
+                    key={project.id}
+                    value={project.name}
+                    onSelect={() => {
+                      router.push(`/${project.id}`);
+                      setProjectsOpen(false);
+                      setSearchQuery("");
+                    }}
+                  >
+                    <div className="flex flex-col">
+                      <span className="font-medium">{project.name}</span>
+                    </div>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
 
       <Button className="flex items-center gap-2 h-8" onClick={handleNewDesign}>
         <Plus className="h-4 w-4" />
